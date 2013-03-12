@@ -1,0 +1,6 @@
+a:15:{s:6:"apikey";s:7:"API key";s:11:"boxnet:view";s:23:"View box.net repository";s:12:"configplugin";s:21:"Box.net configuration";s:11:"callbackurl";s:12:"Callback URL";s:15:"callbackurltext";s:201:"<ol>
+<li>Visit <a href="http://www.box.net/developers/services">box.net developers site</a> again.</li>
+<li>Make sure you set the callback URL of this box.net service to <strong>{$a}</strong></li></ol>";s:15:"callbackwarning";s:360:"<ol>
+<li>Get a <a href="http://www.box.net/developers/services">box.net API</a> from box.net for this Moodle site.</li>
+<li>Enter box.net api key here, then click Save and then come back to this page.  You will see that Moodle has generated a callback URL for you.</li>
+<li>Edit your box.net details on box.net website again and set the callback URL.</li></ol>";s:11:"information";s:121:"Get an API key from the <a href="http://www.box.net/developers/services">Box.net developer page</a> for your Moodle site.";s:15:"invalidpassword";s:16:"Invalid password";s:12:"nullfilelist";s:37:"There are no files in this repository";s:8:"password";s:8:"Password";s:15:"pluginname_help";s:21:"Repository on Box.net";s:10:"pluginname";s:7:"Box.net";s:5:"saved";s:18:"Box.net data saved";s:8:"shareurl";s:9:"Share URL";s:8:"username";s:20:"Username for Box.net";}
