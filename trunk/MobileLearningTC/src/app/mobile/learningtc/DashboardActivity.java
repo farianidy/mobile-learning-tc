@@ -1,10 +1,9 @@
 package app.mobile.learningtc;
 
-//import java.util.HashMap;
+import java.util.HashMap;
 
 import app.mobile.account.UserProfileActivity;
 import app.mobile.authentication.AlertDialogManager;
-import app.mobile.authentication.LoginActivity;
 import app.mobile.authentication.SessionManager;
 import app.mobile.calendar.CalendarActivity;
 import app.mobile.course.CourseActivity;
@@ -18,7 +17,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
-//import android.widget.Toast;
+import android.widget.Toast;
 
 public class DashboardActivity extends Activity {
 	
@@ -34,19 +33,19 @@ public class DashboardActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_dashboard);
 		
-//		session = new SessionManager(this);
-//		
-//		Toast.makeText(getApplicationContext(), "User Login Status: " + session.isLoggedIn(), 
-//				Toast.LENGTH_LONG).show();
-//		
-//		session.checkLogin();
-//		
-//		HashMap<String, String> user = session.getUserDetails();
-//		userid = user.get(SessionManager.KEY_USERID);
-//		username = user.get(SessionManager.KEY_USERNAME);
+		session = new SessionManager(this);
+		
+		Toast.makeText(getApplicationContext(), "User Login Status: " + session.isLoggedIn(), 
+				Toast.LENGTH_LONG).show();
+		
+		session.checkLogin();
+		
+		HashMap<String, String> user = session.getUserDetails();
+		userid = user.get(SessionManager.KEY_USERID);
+		username = user.get(SessionManager.KEY_USERNAME);
 		
 		Intent param = getIntent();
-		username = param.getStringExtra("username");
+//		username = param.getStringExtra("username");
 		fullname = param.getStringExtra("fullname");
         
         tvLogout = (TextView) findViewById(R.id.tvLogout);
@@ -56,8 +55,7 @@ public class DashboardActivity extends Activity {
         
         tvLogout.setOnClickListener(new View.OnClickListener() {			
 			public void onClick(View v) {
-				Intent logoutPage = new Intent(DashboardActivity.this, LoginActivity.class);
-				startActivity(logoutPage);
+				session.logoutUser();
 			}
 		});
         

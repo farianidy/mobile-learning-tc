@@ -1,9 +1,10 @@
-<?php ?>
 <?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0">
+<rss version="2.0"  xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
 		<title>User Login</title>
 		<link>http://elearning.if.its.ac.id</link>
+		<description></description>
+		<language>id</language>
 <?php
 	include "config.php";
 	
@@ -20,19 +21,23 @@
 		$result = mysql_query($query);
 		while ($row = mysql_fetch_array($result)) {
 ?>
-		<category><?php echo $row["id"]; ?></category>
-		<description><?php echo $row["firstname"] . " " . $row["lastname"]; ?></description>
+		<item>
+			<title><?php echo $row["id"]; ?></title>
+			<link><?php echo $row["firstname"] . " " . $row["lastname"]; ?></link>
+		</item>
 <?php
 		}
 		mysql_free_result($result);
 	}
 	else {
 ?>
-		<category><?php echo 0; ?></category>
-		<description><?php echo ""; ?></description>
-	</channel>
-</rss>
+		<item>
+			<title><?php echo 0; ?></title>
+			<link><?php echo ""; ?></link>
+		</item>
 <?php
 	}
 	mysql_close();
 ?>
+	</channel>
+</rss>
