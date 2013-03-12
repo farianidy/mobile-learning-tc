@@ -13,12 +13,11 @@ public class SessionManager {
 	Editor editor;
 	Context _context;
 	
-	int PRIVATE_MODE = 0;		// Shared preference mode
+	int PRIVATE_MODE = 0;
 	
-	private static final String PREF_NAME = "MobileLearningTCPref";	// Shared preference file name
-	private static final String IS_LOGIN = "IsLoggedIn";			// All Shared Preferences Keys
+	private static final String PREF_NAME = "MobileLearningTCPref";
+	private static final String IS_LOGIN = "IsLoggedIn";
 	
-	// Make variable public to access from outside
 	public static final String KEY_USERID = "userid";
 	public static final String KEY_USERNAME = "username";
 	
@@ -36,23 +35,15 @@ public class SessionManager {
 		editor.commit();
 	}	
 	
-	/**
-	 * Check login method will check user login status
-	 * If false it will redirect user to login page
-	 * Else won't do anything
-	 * */
 	public void checkLogin() {
 		if (!this.isLoggedIn()) {
-			// user is not logged in redirect him to Login Activity
 			Intent i = new Intent(_context, LoginActivity.class);
-			i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);		// Closing all the Activities
-			i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);		// Add new Flag to start new Activity
-			_context.startActivity(i);						// Starting Login Activity
+			i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			_context.startActivity(i);
 		}
-		
 	}
 	
-	// Get stored session data
 	public HashMap<String, String> getUserDetails() {
 		HashMap<String, String> user = new HashMap<String, String>();
 		user.put(KEY_USERID, pref.getString(KEY_USERID, null));
@@ -61,20 +52,16 @@ public class SessionManager {
 		return user;
 	}
 	
-	// Clear session details
 	public void logoutUser() {
-		// Clearing all data from Shared Preferences
 		editor.clear();
 		editor.commit();
 		
-		// After logout redirect user to Login Activity
 		Intent i = new Intent(_context, LoginActivity.class);
-		i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);	// Closing all the Activities
-		i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);	// Add new Flag to start new Activity
-		_context.startActivity(i);					// Starting Login Activity
+		i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		_context.startActivity(i);
 	}
 	
-	// Quick check for login
 	public boolean isLoggedIn() {
 		return pref.getBoolean(IS_LOGIN, false);
 	}
