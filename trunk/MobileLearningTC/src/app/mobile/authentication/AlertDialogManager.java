@@ -8,7 +8,6 @@ import android.content.DialogInterface;
 
 public class AlertDialogManager {
 
-	@SuppressWarnings("deprecation")
 	public void showAlertDialog(Context context, String title, String message, Boolean status) {
 		AlertDialog alertDialog = new AlertDialog.Builder(context).create();
 

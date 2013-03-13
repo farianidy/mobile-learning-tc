@@ -38,7 +38,9 @@
     <string name="profile_last_access">Last Access</string>
     <string name="button_course">Course</string>
     <string name="button_calendar">Calendar</string>
-    <string name="title_activity_course">CourseActivity</string>
-    <string name="title_activity_calendar">CalendarActivity</string>
+    <string name="title_activity_course">Course</string>
+    <string name="title_activity_calendar">Calendar</string>
+    <string name="response_empty_data">Maaf, tidak ada data yang dapat ditampilkan.</string>
+    <string name="title_activity_course_topic">CourseTopicActivity</string>
 
 </resources>

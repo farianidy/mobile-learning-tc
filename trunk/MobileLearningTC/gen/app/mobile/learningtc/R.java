@@ -29,48 +29,54 @@ public final class R {
         public static final int user_empty=0x7f020005;
     }
     public static final class id {
-        public static final int action_settings=0x7f080015;
-        public static final int bLogin=0x7f08000b;
-        public static final int etPassword=0x7f08000a;
-        public static final int etUsername=0x7f080009;
-        public static final int ibCalendar=0x7f080007;
-        public static final int ibCourse=0x7f080006;
-        public static final int ivUser=0x7f08000e;
+        public static final int action_settings=0x7f080019;
+        public static final int bLogin=0x7f08000f;
+        public static final int etPassword=0x7f08000e;
+        public static final int etUsername=0x7f08000d;
+        public static final int feedCourseDescription=0x7f080004;
+        public static final int feedCourseLink=0x7f080006;
+        public static final int feedCoursePubdate=0x7f080005;
+        public static final int feedCourseTitle=0x7f080003;
+        public static final int ibCalendar=0x7f08000b;
+        public static final int ibCourse=0x7f08000a;
+        public static final int ivUser=0x7f080012;
         public static final int tvAboutContent=0x7f080001;
         public static final int tvAboutEmail=0x7f080002;
-        public static final int tvAboutLink=0x7f08000c;
+        public static final int tvAboutLink=0x7f080010;
         public static final int tvAboutTitle=0x7f080000;
-        public static final int tvCity=0x7f080011;
-        public static final int tvCountry=0x7f080010;
-        public static final int tvEmailAddress=0x7f080012;
-        public static final int tvFirstAccess=0x7f080013;
-        public static final int tvLastAccess=0x7f080014;
-        public static final int tvLoginTitle=0x7f080008;
-        public static final int tvLogout=0x7f080003;
-        public static final int tvName=0x7f08000d;
-        public static final int tvUserProfile=0x7f080005;
-        public static final int tvUsername=0x7f08000f;
-        public static final int tvWelcome=0x7f080004;
+        public static final int tvCity=0x7f080015;
+        public static final int tvCountry=0x7f080014;
+        public static final int tvEmailAddress=0x7f080016;
+        public static final int tvFirstAccess=0x7f080017;
+        public static final int tvLastAccess=0x7f080018;
+        public static final int tvLoginTitle=0x7f08000c;
+        public static final int tvLogout=0x7f080007;
+        public static final int tvName=0x7f080011;
+        public static final int tvUserProfile=0x7f080009;
+        public static final int tvUsername=0x7f080013;
+        public static final int tvWelcome=0x7f080008;
     }
     public static final class layout {
         public static final int activity_about=0x7f030000;
         public static final int activity_calendar=0x7f030001;
         public static final int activity_change_password=0x7f030002;
         public static final int activity_course=0x7f030003;
-        public static final int activity_dashboard=0x7f030004;
-        public static final int activity_edit_profile=0x7f030005;
-        public static final int activity_login=0x7f030006;
-        public static final int activity_user_profile=0x7f030007;
+        public static final int activity_course_topic=0x7f030004;
+        public static final int activity_dashboard=0x7f030005;
+        public static final int activity_edit_profile=0x7f030006;
+        public static final int activity_login=0x7f030007;
+        public static final int activity_user_profile=0x7f030008;
     }
     public static final class menu {
         public static final int about=0x7f070000;
         public static final int calendar=0x7f070001;
         public static final int change_password=0x7f070002;
         public static final int course=0x7f070003;
-        public static final int dashboard=0x7f070004;
-        public static final int edit_profile=0x7f070005;
-        public static final int login=0x7f070006;
-        public static final int user_profile=0x7f070007;
+        public static final int course_topic=0x7f070004;
+        public static final int dashboard=0x7f070005;
+        public static final int edit_profile=0x7f070006;
+        public static final int login=0x7f070007;
+        public static final int user_profile=0x7f070008;
     }
     public static final class string {
         public static final int action_settings=0x7f050001;
@@ -94,10 +100,12 @@ public final class R {
         public static final int profile_first_access=0x7f050017;
         public static final int profile_last_access=0x7f050018;
         public static final int profile_username=0x7f050013;
+        public static final int response_empty_data=0x7f05001d;
         public static final int title_activity_about=0x7f050004;
         public static final int title_activity_calendar=0x7f05001c;
         public static final int title_activity_change_password=0x7f050007;
         public static final int title_activity_course=0x7f05001b;
+        public static final int title_activity_course_topic=0x7f05001e;
         public static final int title_activity_dashboard=0x7f050003;
         public static final int title_activity_edit_profile=0x7f050006;
         public static final int title_activity_login=0x7f050008;

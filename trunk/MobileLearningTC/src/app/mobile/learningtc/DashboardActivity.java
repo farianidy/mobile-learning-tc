@@ -3,7 +3,6 @@ package app.mobile.learningtc;
 import java.util.HashMap;
 
 import app.mobile.account.UserProfileActivity;
-import app.mobile.authentication.AlertDialogManager;
 import app.mobile.authentication.SessionManager;
 import app.mobile.calendar.CalendarActivity;
 import app.mobile.course.CourseActivity;
@@ -23,7 +22,6 @@ public class DashboardActivity extends Activity {
 	
 	String fullname, userid, username;
 	SessionManager session;
-	AlertDialogManager alert = new AlertDialogManager();
 	
 	private TextView tvLogout, tvUserProfile;
 	private ImageButton ibCourse, ibCalendar;
@@ -45,7 +43,6 @@ public class DashboardActivity extends Activity {
 		username = user.get(SessionManager.KEY_USERNAME);
 		
 		Intent param = getIntent();
-//		username = param.getStringExtra("username");
 		fullname = param.getStringExtra("fullname");
         
         tvLogout = (TextView) findViewById(R.id.tvLogout);
