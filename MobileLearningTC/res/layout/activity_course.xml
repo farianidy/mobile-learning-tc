@@ -9,8 +9,52 @@
     tools:context=".CourseActivity" >
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/feedCourseTitle"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:textIsSelectable="true" />
+
+    <TextView
+        android:id="@+id/feedCourseDescription"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/feedCourseTitle"
+        android:textIsSelectable="true" />
+    
+    <TextView
+        android:id="@+id/feedCoursePubdate"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/feedCourseDescription"
+        android:textIsSelectable="true" />
+
+    <TextView
+        android:id="@+id/feedCourseLink"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/feedCoursePubdate"
+        android:autoLink="web"
+        android:textIsSelectable="true" />
+
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/feedCourseLink" >
+    </ListView>
+
+    <TextView
+        android:id="@android:id/empty"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@android:id/list"
+        android:text="@string/response_empty_data" />
 
 </RelativeLayout>

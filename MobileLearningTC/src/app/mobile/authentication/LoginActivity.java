@@ -8,12 +8,7 @@ import app.tool.xml.RSSFeed;
 import app.tool.xml.RSSHandler;
 import app.tool.xml.RSSItem;
 
-//import java.io.BufferedReader;
-//import java.io.DataOutputStream;
-//import java.io.InputStream;
-//import java.io.InputStreamReader;
 import java.io.IOException;
-//import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -70,20 +65,6 @@ public class LoginActivity extends Activity {
 				String password = etPassword.getText().toString();
 
 				if (username.trim().length() > 0 && password.trim().length() > 0) {
-					// LOGIN
-//					String reply = tryLogin(username, password);
-//					
-//					if (reply != null) {
-//						Log.d("AfterLoginCheck", "Here");
-//						Log.d("Full Name", reply);
-//						
-//						Intent dashboardPage = new Intent(LoginActivity.this, DashboardActivity.class);
-//						dashboardPage.putExtra("username", username);
-//						dashboardPage.putExtra("fullname", reply);
-//						startActivity(dashboardPage);
-//					}
-					
-					// LOGIN XML
 					RSSFeed loginFeed = tryLogin(username, password);
 					
 					if (loginFeed != null) {
@@ -129,69 +110,7 @@ public class LoginActivity extends Activity {
 		return true;
 	}
 
-	@SuppressLint("NewApi")
-//	protected String tryLogin(String username, String password) {
-//		Log.d("LoginCheck", "Here");
-//		
-//		String response = null;
-//		String parameters = "username=" + username + "&password=" + password;
-//		Log.d("Parameters", parameters);
-//
-//		if (android.os.Build.VERSION.SDK_INT > 9) {
-//			StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-//			StrictMode.setThreadPolicy(policy);
-//		}
-//
-//		try {
-//			serviceConnection = new ServiceConnection("/login.php?" + parameters);
-//			serviceUrl = serviceConnection.getUrlServiceServer();
-//			URL url = new URL(serviceUrl);
-//			Log.d("Server URL", serviceUrl);
-//			
-//			// REST CALL
-//
-//			// Send Request
-//			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-//			connection.setRequestMethod("POST");
-//			connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-//			connection.setRequestProperty("Content-Language", "en-US");
-//			connection.setDoOutput(true);
-//			connection.setUseCaches(false);
-//			connection.setDoInput(true);
-//
-//			DataOutputStream request = new DataOutputStream(connection.getOutputStream());
-//			request.writeBytes(parameters);
-//			request.flush();
-//			request.close();
-//
-//			// Get Response
-//			InputStream is = connection.getInputStream();
-//			BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-//			String line;
-//			StringBuilder sb = new StringBuilder();
-//
-//			while ((line = reader.readLine()) != null) {
-//				sb.append(line + "\n");
-//			}
-//
-//			String temp = sb.toString();
-//			Log.d("Temp", temp);
-//			response = sb.toString();
-//			Log.d("Response", response);
-//			Log.d("SB Value", sb.toString());
-//			reader.close();
-//		}
-//		catch (MalformedURLException e) {
-//			e.printStackTrace();
-//		}
-//		catch(IOException e) {
-//			int duration = 10;
-//			Toast.makeText(this, e.toString(), duration).show();
-//		}
-//		
-//		return response;
-//	}
-	
+	@SuppressLint("NewApi")	
 	protected RSSFeed tryLogin(String username, String password) {
 		Log.d("LoginXMLCheck", "Here");
 
