@@ -7,52 +7,50 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".LoginActivity" >
-
-    <TextView
-        android:id="@+id/tvLoginTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/title_activity_login"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <EditText
-        android:id="@+id/etUsername"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/tvLoginTitle"
-        android:layout_below="@+id/tvLoginTitle"
-        android:layout_marginTop="20dp"
-        android:ems="10"
-        android:hint="@string/hint_username"
-        android:inputType="textAutoComplete" >
-        <requestFocus />
-    </EditText>
-
-    <EditText
-        android:id="@+id/etPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/etUsername"
-        android:layout_below="@+id/etUsername"
-        android:ems="10"
-        android:hint="@string/hint_password"
-        android:inputType="textPassword" />
-
-    <Button
-        android:id="@+id/bLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/etPassword"
-        android:layout_below="@+id/etPassword"
-        android:text="@string/button_login" />
-
+    
     <TextView
         android:id="@+id/tvAboutLink"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
         android:text="@string/link_about"
         android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <Button
+        android:id="@+id/bLogin"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/etPassword"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="false"
+        android:layout_marginBottom="60dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/button_login" />
+
+    <EditText
+        android:id="@+id/etPassword"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bLogin"
+        android:layout_alignLeft="@+id/etUsername"
+        android:layout_marginTop="5dp"
+        android:ems="10"
+        android:hint="@string/hint_password"
+        android:inputType="textPassword"
+        android:gravity="center_horizontal" />
+
+    <EditText
+        android:id="@+id/etUsername"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/etPassword"
+        android:layout_alignRight="@+id/tvAboutLink"
+        android:ems="10"
+        android:hint="@string/hint_username"
+        android:inputType="textAutoComplete"
+        android:gravity="center_horizontal" >
+        <requestFocus></requestFocus>
+	</EditText>
 
 </RelativeLayout>

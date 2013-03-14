@@ -9,6 +9,15 @@
     tools:context=".DashboardActivity" >
     
     <TextView
+        android:id="@+id/tvDashboardTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/title_activity_dashboard"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+    
+    <TextView
         android:id="@+id/tvLogout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -21,7 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/tvLogout"
+        android:layout_below="@+id/tvDashboardTitle"
         android:layout_marginTop="15dp"
         android:text="@string/content_welcome" />
 
