@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.text.Html;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -20,10 +21,10 @@ import android.widget.Toast;
 
 public class DashboardActivity extends Activity {
 	
-	String fullname, userid, username;
+	String userid, username, fullname;
 	SessionManager session;
 	
-	private TextView tvLogout, tvUserProfile;
+	private TextView tvUserProfile;
 	private ImageButton ibCourse, ibCalendar;
 	
 	@Override
@@ -31,7 +32,7 @@ public class DashboardActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_dashboard);
 		
-		session = new SessionManager(this);
+		session = new SessionManager(getApplicationContext());
 		
 		Toast.makeText(getApplicationContext(), "User Login Status: " + session.isLoggedIn(), 
 				Toast.LENGTH_LONG).show();
@@ -41,20 +42,11 @@ public class DashboardActivity extends Activity {
 		HashMap<String, String> user = session.getUserDetails();
 		userid = user.get(SessionManager.KEY_USERID);
 		username = user.get(SessionManager.KEY_USERNAME);
-		
-		Intent param = getIntent();
-		fullname = param.getStringExtra("fullname");
+		fullname = user.get(SessionManager.KEY_FULLNAME);
         
-        tvLogout = (TextView) findViewById(R.id.tvLogout);
         tvUserProfile = (TextView) findViewById(R.id.tvUserProfile);
         ibCourse = (ImageButton) findViewById(R.id.ibCourse);
         ibCalendar = (ImageButton) findViewById(R.id.ibCalendar);
-        
-        tvLogout.setOnClickListener(new View.OnClickListener() {			
-			public void onClick(View v) {
-				session.logoutUser();
-			}
-		});
         
         Resources res = getResources();
         String textUser = String.format(res.getString(R.string.link_user_profile), fullname, username);
@@ -63,25 +55,22 @@ public class DashboardActivity extends Activity {
         
         tvUserProfile.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				Intent userProfilePage = new Intent(DashboardActivity.this, UserProfileActivity.class);
-				userProfilePage.putExtra("username", username);
-				startActivity(userProfilePage);
+				Intent i = new Intent(DashboardActivity.this, UserProfileActivity.class);
+				startActivity(i);
 			}
 		});
         
         ibCourse.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				Intent coursePage = new Intent(DashboardActivity.this, CourseActivity.class);
-				coursePage.putExtra("username", username);
-				startActivity(coursePage);
+				Intent i = new Intent(DashboardActivity.this, CourseActivity.class);
+				startActivity(i);
 			}
 		});
         
         ibCalendar.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				Intent calendarPage = new Intent(DashboardActivity.this, CalendarActivity.class);
-				calendarPage.putExtra("username", username);
-				startActivity(calendarPage);
+				Intent i = new Intent(DashboardActivity.this, CalendarActivity.class);
+				startActivity(i);
 			}
 		});
 	}
@@ -91,5 +80,16 @@ public class DashboardActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.dashboard, menu);
 		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			case R.id.action_logout:
+				session.logoutUser();
+				return true;
+			default:
+				return super.onOptionsItemSelected(item);
+		}
 	}
 }

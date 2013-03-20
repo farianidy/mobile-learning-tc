@@ -1,5 +1,6 @@
 package app.mobile.account;
 
+import app.mobile.authentication.SessionManager;
 import app.mobile.learningtc.R;
 import app.tool.config.MoodleConnection;
 import app.tool.config.ServiceConnection;
@@ -12,21 +13,19 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.util.HashMap;
 
 import android.os.Bundle;
-//import android.os.StrictMode;
-//import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
 import android.widget.TextView;
-//import android.widget.Toast;
 
 public class UserProfileActivity extends Activity {
 	
 	int userid;
 	String username, token, moodleUrl, serviceUrl;
+	SessionManager session;
 	ServiceConnection serviceConnection;
 	MoodleConnection moodleConnection = new MoodleConnection();
 	
@@ -38,8 +37,8 @@ public class UserProfileActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_user_profile);
 		
-		Intent param = getIntent();
-		username = param.getStringExtra("username");
+		HashMap<String, String> user = session.getUserDetails();
+		username = user.get(SessionManager.KEY_USERNAME);
 		
 //		tvName = (TextView) findViewById(R.id.tvName);
 		tvUsername = (TextView) findViewById(R.id.tvUsername);

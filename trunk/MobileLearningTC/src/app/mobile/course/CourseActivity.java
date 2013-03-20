@@ -35,7 +35,7 @@ import android.widget.Toast;
 
 public class CourseActivity extends ListActivity {
 
-	String userid, username, serviceUrl;
+	String userid, serviceUrl;
 	SessionManager session;
 	ServiceConnection serviceConnection;
 	RSSFeed rssFeed = null;
@@ -57,7 +57,6 @@ public class CourseActivity extends ListActivity {
 
 		HashMap<String, String> user = session.getUserDetails();
 		userid = user.get(SessionManager.KEY_USERID);
-		username = user.get(SessionManager.KEY_USERNAME);
 
 		String parameter = "userid=" + userid;
 
