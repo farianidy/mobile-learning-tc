@@ -16,14 +16,6 @@
         android:layout_alignParentTop="true"
         android:text="@string/title_activity_dashboard"
         android:textAppearance="?android:attr/textAppearanceLarge" />
-    
-    <TextView
-        android:id="@+id/tvLogout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:text="@string/button_logout"
-        android:textColor="#2edaff" />
 
     <TextView
         android:id="@+id/tvWelcome"

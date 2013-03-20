@@ -15,9 +15,9 @@ import android.util.Log;
 
 public class MoodleConnection {
 	
+	//String urlMoodleServer = "http://10.0.2.2/moodle";
 	String urlMoodleServer = "http://192.168.1.3/moodle";
-	//String urlMoodleServer = "http://172.19.199.243/moodle";
-	//String urlMoodleServer = "http://10.151.43.218/moodle";
+	//String urlMoodleServer = "http://192.168.43.210/moodle";
 	String adminToken = "4506e2a3f8aa465558ac6d0f31438287";
 	
 	public MoodleConnection() {
