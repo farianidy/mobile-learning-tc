@@ -15,27 +15,17 @@
     <string name="title_activity_login">Log In</string>
     <string name="hint_username">Username</string>
     <string name="hint_password">Password</string>
-    <string name="button_login">Login</string>
+    <string name="button_login">Log In</string>
     <string name="content_welcome">Selamat datang, </string>
-    <string name="content_about">
-        <![CDATA[
-        	<p>This application is integrated with e-Learning website of Informatics Department, ITS, which already exist.</p>
-        	<p>Hopefully useful!</p>
-        ]]>
-    </string>
     
-    <string name="about_content_1">
-        Mobile Learning TC is a Moodle application for Android. Built with an idea to access the Moodle site\'s contents with your Android device.
-    </string>
+    <string name="about_content_1">Mobile Learning TC is a Moodle application for Android. Built with an idea to access the Moodle site\'s contents with your Android device.</string>
     <string name="about_server_title">Server</string>
     <string name="about_server_content">e-Learning Informatics Department, ITS</string>
     <string name="about_server_link">http://elearning.if.its.ac.id</string>
     <string name="about_content_2">Hopefuly useful!</string>
     
     <string name="credits_developer_title">Developer</string>
-    <string name="credits_developer_content">
-        Fariani Dewi Yulianti from Informatics Department, ITS Indonesia. This application was created for the purpose of Final Project.
-    </string>
+    <string name="credits_developer_content">Fariani Dewi Yulianti from Informatics Department, ITS Indonesia. This application was created for the purpose of Final Project.</string>
     <string name="credits_supervisor_title">Supervisor</string>
     <string name="credits_supervisor_content">1. Sarwosri, S.Kom., M.T.\n2. Wijayanti Nurul K, S.Kom., M.Sc.</string>
     <string name="credits_critics">Any criticism and suggestion can be submitted via email with subject \"[MobileLearningTC]\" to petiteaiueo@gmail.com</string>
@@ -55,6 +45,7 @@
     <string name="response_empty_data">Maaf, tidak ada data yang dapat ditampilkan.</string>
     <string name="title_activity_course_topic">Course Topic</string>
     <string name="title_activity_course_detail_topic">Course Detail Topic</string>
-    
+    <string name="title_activity_intro">Introduction</string>
+    <string name="button_register"><a href="http://elearning.if.its.ac.id/login/signup.php?">Register</a></string>
 
 </resources>

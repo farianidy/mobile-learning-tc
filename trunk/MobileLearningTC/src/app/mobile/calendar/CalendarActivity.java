@@ -19,6 +19,8 @@ public class CalendarActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_calendar);
 		
+		session = new SessionManager(this);
+		
 		HashMap<String, String> user = session.getUserDetails();
 		username = user.get(SessionManager.KEY_USERNAME);
 	}

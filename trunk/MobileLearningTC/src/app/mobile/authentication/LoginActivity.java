@@ -36,7 +36,6 @@ import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -52,7 +51,8 @@ public class LoginActivity extends Activity {
 	String username, password, passwordHash, serviceUrl;
 	ServiceConnection serviceConnection;
 	SessionManager session;
-	UserLoginTask authTask = null;
+	
+	userLoginTask authTask = null;
 
 	private Button bLogin;
 	private EditText etUsername, etPassword;
@@ -100,19 +100,8 @@ public class LoginActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		MenuInflater menuInflater = getMenuInflater();
-		menuInflater.inflate(R.menu.login, menu);
+		getMenuInflater().inflate(R.menu.menu_no_session, menu);
 		return true;
-	}
-	
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			moveTaskToBack(true);
-			return true;
-		}
-		
-		return super.onKeyDown(keyCode, event);
 	}
 	
 	@Override
@@ -147,6 +136,16 @@ public class LoginActivity extends Activity {
 		return dialog;
 	}
 	
+//	@Override
+//	public boolean onKeyDown(int keyCode, KeyEvent event) {
+//		if (keyCode == KeyEvent.KEYCODE_BACK) {
+//			moveTaskToBack(true);
+//			return true;
+//		}
+//		
+//		return super.onKeyDown(keyCode, event);
+//	}
+	
 	public void attemptLogin() {
 		if (authTask != null)
 			return;
@@ -176,9 +175,9 @@ public class LoginActivity extends Activity {
 			focusView.requestFocus();
 		}
 		else {
-			tvLoginStatusMessage.setText(R.string.login_progress_signing_in);
+			tvLoginStatusMessage.setText(R.string.login_progress_logging_in);
 			showProgress(true);
-			authTask = new UserLoginTask();
+			authTask = new userLoginTask();
 			authTask.execute((Void) null);
 		}
 	}
@@ -217,19 +216,17 @@ public class LoginActivity extends Activity {
 		}
 	}
 	
-	public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
-		RSSItem userDetail = null;
-		
+	private class userLoginTask extends AsyncTask<Void, Void, RSSItem> {
 		@Override
-		protected Boolean doInBackground(Void... params) {
+		protected RSSItem doInBackground(Void... params) {
 			Log.d("LoginXMLCheck", "Here");
 
 			RSSFeed rssFeed = null;
-			String parameters = "username=" + username;
+			String parameter = "username=" + username;
 			
 			try {
 				Thread.sleep(2000);
-				serviceConnection = new ServiceConnection("/loginXML.php?" + parameters);
+				serviceConnection = new ServiceConnection("/loginXML.php?" + parameter);
 				serviceUrl = serviceConnection.getUrlServiceServer();
 				URL url = new URL(serviceUrl);
 				Log.d("Server URL", serviceUrl);
@@ -243,11 +240,10 @@ public class LoginActivity extends Activity {
 				xmlReader.parse(new InputSource(url.openStream()));
 				rssFeed = rssHandler.getFeed();
 				
-				userDetail = rssFeed.getItem(0);
-				passwordHash = md5(password + passwordSaltMain);
-				return userDetail.getPubdate().equals(passwordHash);
-			} catch (InterruptedException e) {
-				return false;
+				return rssFeed.getItem(0);
+			}
+			catch (InterruptedException e) {
+				e.printStackTrace();
 			}
 			catch (MalformedURLException e) {
 				e.printStackTrace();
@@ -262,11 +258,11 @@ public class LoginActivity extends Activity {
 				e.printStackTrace();
 			}
 			
-			return true;
+			return null;
 		}
 
 		@Override
-		protected void onPostExecute(final Boolean success) {
+		protected void onPostExecute(RSSItem userDetail) {
 			authTask = null;
 			showProgress(false);
 			
@@ -277,17 +273,25 @@ public class LoginActivity extends Activity {
 			Log.d("User Id", userid);
 			Log.d("Password", userDetail.getPubdate());
 			Log.d("Full Name", fullname);
-
-			if (success) {
-				session.createLoginSession(userid, username, fullname);
-				
-				Intent i = new Intent(getApplicationContext(), DashboardActivity.class);
-				startActivity(i);
-				finish();
+			
+			passwordHash = md5(password + passwordSaltMain);
+			
+			if (userid.equals("0")) {
+				etUsername.setError(getString(R.string.error_incorrect_username));
+				etUsername.requestFocus();
 			}
 			else {
-				etPassword.setError(getString(R.string.error_incorrect_password));
-				etPassword.requestFocus();
+				if (userDetail.getPubdate().equals(passwordHash)) {
+					session.createLoginSession(userid, username, fullname);
+					
+					Intent i = new Intent(getApplicationContext(), DashboardActivity.class);
+					startActivity(i);
+					finish();
+				}
+				else {
+					etPassword.setError(getString(R.string.error_incorrect_password));
+					etPassword.requestFocus();
+				}
 			}
 		}
 
