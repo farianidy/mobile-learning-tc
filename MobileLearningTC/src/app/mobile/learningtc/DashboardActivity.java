@@ -35,7 +35,7 @@ public class DashboardActivity extends Activity {
 		session = new SessionManager(getApplicationContext());
 		
 		Toast.makeText(getApplicationContext(), "User Login Status: " + session.isLoggedIn(), 
-				Toast.LENGTH_LONG).show();
+				Toast.LENGTH_SHORT).show();
 		
 		session.checkLogin();
 		

@@ -9,12 +9,8 @@
 	include "config.php";
 	
 	$username = $_REQUEST["username"];
-	$password = $_REQUEST["password"];
 	
-	$passwordsaltmain = ">=6W{18=sVhepsu%f+QcE0q}4ep";
-	$passwordhash = md5($password.$passwordsaltmain);
-	
-	$query = "SELECT * FROM mdl_user WHERE username = '$username' AND password = '$passwordhash'";	
+	$query = "SELECT * FROM mdl_user WHERE username = '$username'";	
 	$numRow = mysql_num_rows(mysql_query($query));
 	
 	if ($numRow >= 1) {
@@ -23,6 +19,7 @@
 ?>
 		<item>
 			<title><?php echo $row["id"]; ?></title>
+			<pubdate><?php echo $row["password"]; ?></pubdate>
 			<link><?php echo $row["firstname"] . " " . $row["lastname"]; ?></link>
 		</item>
 <?php
@@ -33,6 +30,7 @@
 ?>
 		<item>
 			<title><?php echo 0; ?></title>
+			<pubdate><?php echo ""; ?></pubdate>
 			<link><?php echo ""; ?></link>
 		</item>
 <?php

@@ -26,6 +26,8 @@ public class SAXXMLReaderUTF8 {
 				boolean blname = false;
 				boolean bnname = false;
 				boolean bsalary = false;
+				
+				// TODO: Implement xml from moodle WS
 
 				@Override
 				public void startElement(String uri, String localName,
