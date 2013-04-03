@@ -2,14 +2,10 @@ package app.mobile.learningtc;
 
 import java.util.HashMap;
 
-import app.mobile.account.UserProfileActivity;
 import app.mobile.authentication.SessionManager;
-import app.mobile.calendar.CalendarActivity;
-import app.mobile.course.CourseActivity;
 
 import android.os.Bundle;
 import android.app.Activity;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.text.Html;
 import android.view.Menu;
@@ -55,22 +51,16 @@ public class DashboardActivity extends Activity {
         
         tvUserProfile.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				Intent i = new Intent(DashboardActivity.this, UserProfileActivity.class);
-				startActivity(i);
 			}
 		});
         
         ibCourse.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				Intent i = new Intent(DashboardActivity.this, CourseActivity.class);
-				startActivity(i);
 			}
 		});
         
         ibCalendar.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				Intent i = new Intent(DashboardActivity.this, CalendarActivity.class);
-				startActivity(i);
 			}
 		});
 	}
@@ -78,7 +68,7 @@ public class DashboardActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.dashboard, menu);
+		getMenuInflater().inflate(R.menu.menu_session, menu);
 		return true;
 	}
 	
