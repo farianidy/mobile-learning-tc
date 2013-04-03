@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import app.mobile.learningtc.IntroActivity;
+import app.mobile.learningtc.MainActivity;
 
 public class SessionManager {
 	
@@ -41,6 +42,12 @@ public class SessionManager {
 	public void checkLogin() {
 		if (!this.isLoggedIn()) {
 			Intent i = new Intent(context, IntroActivity.class);
+			i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			context.startActivity(i);
+		}
+		else {
+			Intent i = new Intent(context, MainActivity.class);
 			i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			context.startActivity(i);

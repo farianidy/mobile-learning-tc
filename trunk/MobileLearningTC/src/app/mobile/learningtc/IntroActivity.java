@@ -20,13 +20,13 @@ import app.mobile.authentication.LoginActivity;
 public class IntroActivity extends Activity {
 
 	private Button bRegister, bLogin;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		
+		// Set view
 		getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-
 		setContentView(R.layout.activity_intro);
 
 		ViewPager viewPager = (ViewPager) findViewById(R.id.vpIntro);
@@ -74,11 +74,11 @@ public class IntroActivity extends Activity {
 
 		switch (id) {
 		case 0:
-			dialog.setContentView(R.layout.view_about);
+			dialog.setContentView(R.layout.dialog_about);
 			dialog.setTitle("About");
 			break;
 		case 1:
-			dialog.setContentView(R.layout.view_credits);
+			dialog.setContentView(R.layout.dialog_credits);
 			dialog.setTitle("Credits");
 			break;
 		}
@@ -86,15 +86,15 @@ public class IntroActivity extends Activity {
 		return dialog;
 	}
 
-//	@Override
-//	public boolean onKeyDown(int keyCode, KeyEvent event) {
-//		if (keyCode == KeyEvent.KEYCODE_BACK) {
-//			moveTaskToBack(true);
-//			return true;
-//		}
-//
-//		return super.onKeyDown(keyCode, event);
-//	}
+	//	@Override
+	//	public boolean onKeyDown(int keyCode, KeyEvent event) {
+	//		if (keyCode == KeyEvent.KEYCODE_BACK) {
+	//			moveTaskToBack(true);
+	//			return true;
+	//		}
+	//
+	//		return super.onKeyDown(keyCode, event);
+	//	}
 
 	private class ImagePageAdapter extends PagerAdapter {
 		private int[] images = new int[] {

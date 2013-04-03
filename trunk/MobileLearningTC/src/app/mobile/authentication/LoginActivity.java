@@ -1,11 +1,11 @@
 package app.mobile.authentication;
 
-import app.mobile.learningtc.DashboardActivity;
+import app.mobile.learningtc.MainActivity;
 import app.mobile.learningtc.R;
-import app.tool.config.ServiceConnection;
-import app.tool.xml.RSSFeed;
-import app.tool.xml.RSSHandler;
-import app.tool.xml.RSSItem;
+import app.util.connection.ServiceConnection;
+import app.util.xml.RSSFeed;
+import app.util.xml.RSSHandler;
+import app.util.xml.RSSItem;
 
 import java.io.IOException;
 import java.math.BigInteger;
@@ -124,11 +124,11 @@ public class LoginActivity extends Activity {
 		
 		switch (id) {
 			case 0:
-				dialog.setContentView(R.layout.view_about);
+				dialog.setContentView(R.layout.dialog_about);
 				dialog.setTitle("About");
 				break;
 			case 1:
-				dialog.setContentView(R.layout.view_credits);
+				dialog.setContentView(R.layout.dialog_credits);
 				dialog.setTitle("Credits");
 				break;
 		}
@@ -284,7 +284,7 @@ public class LoginActivity extends Activity {
 				if (userDetail.getPubdate().equals(passwordHash)) {
 					session.createLoginSession(userid, username, fullname);
 					
-					Intent i = new Intent(getApplicationContext(), DashboardActivity.class);
+					Intent i = new Intent(getApplicationContext(), MainActivity.class);
 					startActivity(i);
 					finish();
 				}
