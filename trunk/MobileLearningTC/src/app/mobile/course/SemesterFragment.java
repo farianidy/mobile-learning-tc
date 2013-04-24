@@ -1,6 +1,7 @@
 package app.mobile.course;
 
 import app.mobile.authentication.SessionManager;
+import app.mobile.learningtc.MainActivity;
 import app.mobile.learningtc.R;
 import app.util.connection.ServiceConnection;
 import app.util.xml.RSSFeed;
@@ -29,85 +30,60 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockListFragment;
-import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
 
 public class SemesterFragment extends SherlockListFragment {
-
-	private String[] menuItems = {
-			"Course",
-			"Semester"
-	};
-
+	
 	String userid, serviceUrl;
 	SessionManager session;
 	ServiceConnection serviceConnection;
+	RSSFeed rssFeed = null;
 
-	private ProgressDialog progressCategory;
-	private TextView feedCategoryTitle, feedCategoryDescription;
+	private ProgressDialog progressDialog;
+	private TextView feedTitle, feedDescription;
 
-	getCategoryTask courseTask = null;
+	getCategoryTask serviceTask = null;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		// Set view
-		getSherlockActivity().getSupportActionBar().setTitle(null);
-		getSherlockActivity().getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
-
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), 
-				android.R.layout.simple_dropdown_item_1line, menuItems);
-		SpinnerAdapter spinnerAdapter = adapter;
-		OnNavigationListener listener = new OnNavigationListener() {
-
-			@Override
-			public boolean onNavigationItemSelected(int itemPosition, long itemId) {
-				switch (itemPosition) {
-				case 1:
-					break;
-				case 2:
-					break;
-				}
-				return true;
-			}
-		};
-		getSherlockActivity().getSupportActionBar().setListNavigationCallbacks(spinnerAdapter, listener);
-
+		getSherlockActivity().getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+		getSherlockActivity().getSupportActionBar().setTitle(R.string.title_fragment_semester);
+		
 		// Get session info
 		session = new SessionManager(getActivity());
 		HashMap<String, String> user = session.getUserDetails();
 		userid = user.get(SessionManager.KEY_USERID);
 
 		// Progress dialog
-		progressCategory = new ProgressDialog(getActivity());
-		progressCategory.setMessage("Loading information...");
-		progressCategory.setIndeterminate(true);
+		progressDialog = new ProgressDialog(getActivity());
+		progressDialog.setMessage("Loading information...");
+		progressDialog.setIndeterminate(true);
 
 		// Get content from web service
-		courseTask = new getCategoryTask();
-		courseTask.execute();
+		serviceTask = new getCategoryTask();
+		serviceTask.execute();
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View v = inflater.inflate(R.layout.fragment_semester, container, false);
+		View v = inflater.inflate(R.layout.list_info, container, false);
 		return v;
 	}
 
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
-		//		Intent intent = new Intent(this, CourseTopicActivity.class);
-		//		Bundle bundle = new Bundle();
-		//		bundle.putString("courseId", rssFeed.getItem(position).getLink());
-		//		bundle.putString("courseName", rssFeed.getItem(position).getTitle());
-		//		intent.putExtras(bundle);
-		//		startActivity(intent);
+		if (getActivity() == null)
+			return;
+		
+		MainActivity activity = (MainActivity) getActivity();
+		activity.onSemesterPressed(rssFeed.getItem(position).getLink(), rssFeed.getItem(position).getTitle());
 	}
 
 	private class getCategoryTask extends AsyncTask<Void, Void, RSSFeed> {
@@ -119,35 +95,33 @@ public class SemesterFragment extends SherlockListFragment {
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
-			progressCategory.show();
+			progressDialog.show();
 		}
 
 		@Override
 		protected void onPostExecute(RSSFeed result) {
 			if (result != null) {
-				feedCategoryTitle = (TextView) getView().findViewById(R.id.feedCategoryTitle);
-				feedCategoryDescription = (TextView) getView().findViewById(R.id.feedCategoryDescription);
+				feedTitle = (TextView) getView().findViewById(R.id.feedTitle);
+				feedDescription = (TextView) getView().findViewById(R.id.feedDescription);
 
-				feedCategoryTitle.setText(result.getTitle());
-				feedCategoryDescription.setText(result.getDescription());
+				feedTitle.setText(result.getTitle());
+				feedDescription.setText(result.getDescription());
 
 				ArrayAdapter<RSSItem> rssList = new ArrayAdapter<RSSItem>(getActivity(), 
 						android.R.layout.simple_list_item_1, result.getList());
 				setListAdapter(rssList);
 			}
 
-			progressCategory.dismiss();
+			progressDialog.dismiss();
 		}
 
 		@Override
 		protected void onCancelled() {
-			progressCategory.dismiss();
+			progressDialog.dismiss();
 		}
 	}
 
 	private RSSFeed getCategory() {
-		RSSFeed rssFeed = null;
-
 		try {
 			serviceConnection = new ServiceConnection("/category.php");
 			serviceUrl = serviceConnection.getUrlServiceServer();
