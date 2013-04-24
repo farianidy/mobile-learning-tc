@@ -1,6 +1,7 @@
 package app.mobile.course;
 
 import app.mobile.authentication.SessionManager;
+import app.mobile.learningtc.MainActivity;
 import app.mobile.learningtc.R;
 import app.util.connection.ServiceConnection;
 import app.util.xml.RSSFeed;
@@ -21,7 +22,6 @@ import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
 import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
 import com.actionbarsherlock.app.SherlockListFragment;
 
 import android.app.ProgressDialog;
@@ -33,193 +33,98 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 public class CourseFragment extends SherlockListFragment {
-
-	private String[] menuItems = {
-			"Course",
-			"Semester"
-	};
-
+	
 	String userid, serviceUrl;
 	SessionManager session;
 	ServiceConnection serviceConnection;
+	RSSFeed rssFeed = null;
 
-	private ProgressDialog progressCourse;
-	private TextView feedCourseTitle, feedCourseDescription;
+	private ProgressDialog progressDialog;
+	private TextView feedTitle, feedDescription;
+	
+	getCourseTask serviceTask = null;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		// Set view
-		getSherlockActivity().getSupportActionBar().setTitle(null);
-		getSherlockActivity().getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+		getSherlockActivity().getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+		getSherlockActivity().getSupportActionBar().setTitle(R.string.title_fragment_course);
 		
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), 
-				android.R.layout.simple_dropdown_item_1line, menuItems);
-		SpinnerAdapter spinnerAdapter = adapter;
-		OnNavigationListener listener = new OnNavigationListener() {
-			
-			@Override
-			public boolean onNavigationItemSelected(int itemPosition, long itemId) {
-				switch (itemPosition) {
-					case 1:				
-						// Get content course from web service
-						getCourseTask courseTask = new getCourseTask();
-						courseTask.execute();
-						break;
-					case 2:
-						// Get content category from web service
-						getCategoryTask categoryTask = new getCategoryTask();
-						categoryTask.execute();
-						break;
-				}
-				return true;
-			}
-		};
-		getSherlockActivity().getSupportActionBar().setListNavigationCallbacks(spinnerAdapter, listener);
+		// Get session info
+		session = new SessionManager(getActivity());
+		HashMap<String, String> user = session.getUserDetails();
+		userid = user.get(SessionManager.KEY_USERID);
 		
 		// Progress dialog
-		progressCourse = new ProgressDialog(getActivity());
-		progressCourse.setMessage("Loading information...");
-		progressCourse.setIndeterminate(true);
+		progressDialog = new ProgressDialog(getActivity());
+		progressDialog.setMessage("Loading information...");
+		progressDialog.setIndeterminate(true);
+		
+		serviceTask = new getCourseTask();
+		serviceTask.execute();
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View v = inflater.inflate(R.layout.fragment_course, container, false);
+		View v = inflater.inflate(R.layout.list_info, container, false);
 		return v;
 	}
 
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
-		//		Intent intent = new Intent(this, CourseTopicActivity.class);
-		//		Bundle bundle = new Bundle();
-		//		bundle.putString("courseId", rssFeed.getItem(position).getLink());
-		//		bundle.putString("courseName", rssFeed.getItem(position).getTitle());
-		//		intent.putExtras(bundle);
-		//		startActivity(intent);
+		if (getActivity() == null)
+			return;
+		
+		MainActivity activity = (MainActivity) getActivity();
+		activity.onCoursePressed(rssFeed.getItem(position).getLink(), rssFeed.getItem(position).getTitle());
 	}
 
 	private class getCourseTask extends AsyncTask<Void, Void, RSSFeed> {
 		@Override
-		protected RSSFeed doInBackground(Void... params) {
-			// Get session info
-			session = new SessionManager(getActivity());
-			HashMap<String, String> user = session.getUserDetails();
-			userid = user.get(SessionManager.KEY_USERID);
-			
+		protected RSSFeed doInBackground(Void... params) {			
 			return getCourse();
 		}
 
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
-			progressCourse.show();
+			progressDialog.show();
 		}
 
 		@Override
 		protected void onPostExecute(RSSFeed rssFeed) {			
 			if (rssFeed != null) {
-				feedCourseTitle = (TextView) getView().findViewById(R.id.feedCourseTitle);
-				feedCourseDescription = (TextView) getView().findViewById(R.id.feedCourseDescription);
+				feedTitle = (TextView) getView().findViewById(R.id.feedTitle);
+				feedDescription = (TextView) getView().findViewById(R.id.feedDescription);
 
-				feedCourseTitle.setText(rssFeed.getTitle());
-				feedCourseDescription.setText(rssFeed.getDescription());
+				feedTitle.setText(rssFeed.getTitle());
+				feedDescription.setText(rssFeed.getDescription());
 
 				ArrayAdapter<RSSItem> rssList = new ArrayAdapter<RSSItem>(getActivity(), 
 						android.R.layout.simple_list_item_1, rssFeed.getList());
 				setListAdapter(rssList);
 			}
 
-			progressCourse.dismiss();
+			progressDialog.dismiss();
 		}
 
 		@Override
 		protected void onCancelled() {
-			progressCourse.dismiss();
-		}
-	}
-	
-	private class getCategoryTask extends AsyncTask<Void, Void, RSSFeed> {
-		@Override
-		protected RSSFeed doInBackground(Void... params) {
-			return getCategory();
-		}
-
-		@Override
-		protected void onPreExecute() {
-			super.onPreExecute();
-			progressCourse.show();
-		}
-
-		@Override
-		protected void onPostExecute(RSSFeed result) {
-			if (result != null) {
-				feedCourseTitle = (TextView) getView().findViewById(R.id.feedCourseTitle);
-				feedCourseDescription = (TextView) getView().findViewById(R.id.feedCourseDescription);
-
-				feedCourseTitle.setText(result.getTitle());
-				feedCourseDescription.setText(result.getDescription());
-
-				ArrayAdapter<RSSItem> rssList = new ArrayAdapter<RSSItem>(getActivity(), 
-						android.R.layout.simple_list_item_1, result.getList());
-				setListAdapter(rssList);
-			}
-
-			progressCourse.dismiss();
-		}
-
-		@Override
-		protected void onCancelled() {
-			progressCourse.dismiss();
+			progressDialog.dismiss();
 		}
 	}
 
 	private RSSFeed getCourse() {
-		RSSFeed rssFeed = null;
 		String parameter = "userid=" + userid;
 
 		try {
-			serviceConnection = new ServiceConnection("/courseByUserid.php?" + parameter);
-			serviceUrl = serviceConnection.getUrlServiceServer();
-			URL url = new URL(serviceUrl);
-			Log.d("Server URL", serviceUrl);
-
-			SAXParserFactory factory = SAXParserFactory.newInstance();
-			SAXParser parser = factory.newSAXParser();
-			XMLReader xmlReader = parser.getXMLReader();
-
-			RSSHandler rssHandler = new RSSHandler();
-			xmlReader.setContentHandler(rssHandler);
-			xmlReader.parse(new InputSource(url.openStream()));
-			rssFeed = rssHandler.getFeed();
-		}
-		catch (MalformedURLException e) {
-			e.printStackTrace();
-		}
-		catch (ParserConfigurationException e) {
-			e.printStackTrace();
-		}
-		catch (SAXException e) {
-			e.printStackTrace();
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		return rssFeed;
-	}
-	
-	private RSSFeed getCategory() {
-		RSSFeed rssFeed = null;
-
-		try {
-			serviceConnection = new ServiceConnection("/category.php");
+			serviceConnection = new ServiceConnection("/userCourse.php?" + parameter);
 			serviceUrl = serviceConnection.getUrlServiceServer();
 			URL url = new URL(serviceUrl);
 			Log.d("Server URL", serviceUrl);

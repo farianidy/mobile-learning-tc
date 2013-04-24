@@ -1,6 +1,8 @@
 package app.mobile.learningtc;
 
 import app.mobile.authentication.SessionManager;
+import app.mobile.course.CourseContentActivity;
+import app.mobile.course.SemesterCourseActivity;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
@@ -79,6 +81,8 @@ public class MainActivity extends SlidingFragmentActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
+//			case R.id.:
+//				toggle();
 			case R.id.action_logout:
 				session.logoutUser();
 				return true;
@@ -103,5 +107,15 @@ public class MainActivity extends SlidingFragmentActivity {
 				getSlidingMenu().showContent();
 			}
 		}, 50);
+	}
+	
+	public void onCoursePressed(String courseId, String courseFullname) {
+		Intent intent =  CourseContentActivity.newInstance(this, courseId, courseFullname);
+		startActivity(intent);
+	}
+	
+	public void onSemesterPressed(String semesterId, String semesterName) {
+		Intent intent = SemesterCourseActivity.newInstance(this, semesterId, semesterName);
+		startActivity(intent);
 	}
 }

@@ -1,5 +1,7 @@
 package app.mobile.learningtc;
 
+import app.mobile.authentication.LoginActivity;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.Dialog;
@@ -15,7 +17,6 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
-import app.mobile.authentication.LoginActivity;
 
 public class IntroActivity extends Activity {
 
@@ -24,13 +25,13 @@ public class IntroActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+
 		// Set view
 		getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_intro);
 
 		ViewPager viewPager = (ViewPager) findViewById(R.id.vpIntro);
-		ImagePageAdapter adapter = new ImagePageAdapter();
+		SwipeImageAdapter adapter = new SwipeImageAdapter();
 		viewPager.setAdapter(adapter);
 
 		bRegister = (Button) findViewById(R.id.bRegister);
@@ -57,13 +58,13 @@ public class IntroActivity extends Activity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case R.id.action_about:
-			showDialog(0);
-			break;
-		case R.id.action_credits:
-			showDialog(1);
-			break;
-		}
+			case R.id.action_about:
+				showDialog(0);
+				break;
+			case R.id.action_credits:
+				showDialog(1);
+				break;
+			}
 
 		return true;
 	}
@@ -73,30 +74,30 @@ public class IntroActivity extends Activity {
 		final Dialog dialog = new Dialog(this);
 
 		switch (id) {
-		case 0:
-			dialog.setContentView(R.layout.dialog_about);
-			dialog.setTitle("About");
-			break;
-		case 1:
-			dialog.setContentView(R.layout.dialog_credits);
-			dialog.setTitle("Credits");
-			break;
+			case 0:
+				dialog.setContentView(R.layout.dialog_about);
+				dialog.setTitle("About");
+				break;
+			case 1:
+				dialog.setContentView(R.layout.dialog_credits);
+				dialog.setTitle("Credits");
+				break;
 		}
 
 		return dialog;
 	}
 
-	//	@Override
-	//	public boolean onKeyDown(int keyCode, KeyEvent event) {
-	//		if (keyCode == KeyEvent.KEYCODE_BACK) {
-	//			moveTaskToBack(true);
-	//			return true;
-	//		}
-	//
-	//		return super.onKeyDown(keyCode, event);
-	//	}
+//	@Override
+//	public boolean onKeyDown(int keyCode, KeyEvent event) {
+//		if (keyCode == KeyEvent.KEYCODE_BACK) {
+//			moveTaskToBack(true);
+//			return true;
+//		}
+//
+//		return super.onKeyDown(keyCode, event);
+//	}
 
-	private class ImagePageAdapter extends PagerAdapter {
+	private class SwipeImageAdapter extends PagerAdapter {
 		private int[] images = new int[] {
 				R.drawable.tes_swipe_1,
 				R.drawable.tes_swipe_2,

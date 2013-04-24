@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Generated with http://android-holo-colors.com -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <style name="MobileLearningTC_Component" parent="android:Theme.Light">
+
+    <item name="android:editTextStyle">@style/EditTextMobileLearningTC_Component</item>
+
+    <item name="android:autoCompleteTextViewStyle">@style/AutoCompleteTextViewMobileLearningTC_Component</item>
+
+    <item name="android:checkboxStyle">@style/CheckBoxMobileLearningTC_Component</item>
+
+    <item name="android:radioButtonStyle">@style/RadioButtonMobileLearningTC_Component</item>
+
+    <item name="android:buttonStyle">@style/ButtonMobileLearningTC_Component</item>
+
+    <item name="android:imageButtonStyle">@style/ImageButtonMobileLearningTC_Component</item>
+
+    <item name="android:spinnerStyle">@style/SpinnerMobileLearningTC_Component</item>
+
+    <item name="android:dropDownSpinnerStyle">@style/SpinnerMobileLearningTC_Component.DropDown</item>
+
+    <item name="android:spinnerDropDownItemStyle">@style/SpinnerDropDownItemMobileLearningTC_Component</item>
+
+    <item name="android:progressBarStyleHorizontal">@style/ProgressBarMobileLearningTC_Component</item>
+
+    <item name="android:seekBarStyle">@style/SeekBarMobileLearningTC_Component</item>
+
+    <item name="android:ratingBarStyle">@style/RatingBarMobileLearningTC_Component</item>
+
+    <item name="android:ratingBarStyleIndicator">@style/RatingBarBigMobileLearningTC_Component</item>
+
+    <item name="android:ratingBarStyleSmall">@style/RatingBarSmallMobileLearningTC_Component</item>
+
+    <item name="android:buttonStyleToggle">@style/ToggleMobileLearningTC_Component</item>
+
+    <item name="android:listViewStyle">@style/ListViewMobileLearningTC_Component</item>
+
+    <item name="android:listViewWhiteStyle">@style/ListViewMobileLearningTC_Component.White</item>
+
+    <item name="android:spinnerItemStyle">@style/SpinnerItemMobileLearningTC_Component</item>
+
+  </style>
+
+</resources>
