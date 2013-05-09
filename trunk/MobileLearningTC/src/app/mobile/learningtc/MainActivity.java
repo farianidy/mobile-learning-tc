@@ -15,6 +15,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.view.KeyEvent;
 
 public class MainActivity extends SlidingFragmentActivity {
 
@@ -93,6 +94,18 @@ public class MainActivity extends SlidingFragmentActivity {
 			default:
 				return super.onOptionsItemSelected(item);
 		}
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			if (session.isLoggedIn()) {
+				moveTaskToBack(true);
+				return true;
+			}
+		}
+
+		return super.onKeyDown(keyCode, event);
 	}
 
 	public void switchContent(final Fragment fragment) {

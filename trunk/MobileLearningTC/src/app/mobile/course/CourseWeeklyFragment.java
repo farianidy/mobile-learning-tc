@@ -44,13 +44,10 @@ public class CourseWeeklyFragment extends SherlockListFragment {
 	RSSFeed rssFeed = null;
 
 	private ProgressDialog progressDialog;
-	private TextView feedTitle, feedDescription;
-
-	getCourseWeeklyTask serviceTask = null;
+	private TextView tvFeedTitle, tvFeedDescription;
 
 	public CourseWeeklyFragment newInstance(String courseid) {
 		CourseWeeklyFragment fragment = new CourseWeeklyFragment();
-
 		fragment.courseid = courseid;
 
 		return fragment;
@@ -58,20 +55,8 @@ public class CourseWeeklyFragment extends SherlockListFragment {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-
-		// Get session info
-		session = new SessionManager(getActivity());
-		HashMap<String, String> user = session.getUserDetails();
-		userid = user.get(SessionManager.KEY_USERID);
-
-		// Progress dialog
-		progressDialog = new ProgressDialog(getActivity());
-		progressDialog.setMessage("Loading information...");
-		progressDialog.setIndeterminate(true);
-
-		serviceTask = new getCourseWeeklyTask();
-		serviceTask.execute();
 	}
 
 	@Override
@@ -82,16 +67,33 @@ public class CourseWeeklyFragment extends SherlockListFragment {
 	}
 	
 	@Override
+	public void onStart() {
+		super.onStart();
+		
+		// Get session info
+		session = new SessionManager(getActivity());
+		HashMap<String, String> user = session.getUserDetails();
+		userid = user.get(SessionManager.KEY_USERID);
+
+		// Progress dialog
+		progressDialog = new ProgressDialog(getActivity());
+		progressDialog.setMessage("Loading information...");
+		progressDialog.setIndeterminate(true);
+		
+		new getCourseWeeklyTask().execute();
+	}
+
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// TODO Auto-generated method stub
 		return super.onOptionsItemSelected(item);
 	}
-	
+
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		// TODO item pressed
 	}
-	
-	private class getCourseWeeklyTask extends AsyncTask<Void, Void, RSSFeed>{
+
+	public class getCourseWeeklyTask extends AsyncTask<Void, Void, RSSFeed> {		
 		@Override
 		protected RSSFeed doInBackground(Void... params) {
 			return getCourseWeekly();
@@ -106,22 +108,22 @@ public class CourseWeeklyFragment extends SherlockListFragment {
 		@Override
 		protected void onPostExecute(RSSFeed result) {
 			if (rssFeed != null) {
-				feedTitle = (TextView) getView().findViewById(R.id.feedTitle);
-				feedDescription = (TextView) getView().findViewById(R.id.feedDescription);
-				
+				tvFeedTitle = (TextView) getView().findViewById(R.id.tvFeedTitle);
+				tvFeedDescription = (TextView) getView().findViewById(R.id.tvFeedDescription);
+
 				if (rssFeed.getLink() != null) {
-					feedTitle.setText(rssFeed.getTitle());
-					feedDescription.setText("Week " + rssFeed.getDescription());
+					tvFeedTitle.setText(rssFeed.getTitle());
+					tvFeedDescription.setText("Week " + rssFeed.getDescription());
 				}
 				else
-					feedTitle.setText(rssFeed.getTitle());
-				
+					tvFeedTitle.setText(rssFeed.getTitle());
+
 				TwoLineListAdapter adapter = new TwoLineListAdapter(getActivity());
-				
+
 				List<RSSItem> rssList = rssFeed.getList();
 				for (int i = 0; i < rssList.size(); i++) {
-				    RSSItem item = rssList.get(i);
-				    adapter.add(new TwoLineListItem(item.getTitle(), item.getDescription()));
+					RSSItem item = rssList.get(i);
+					adapter.add(new TwoLineListItem(item.getTitle(), item.getDescription()));
 				}
 				setListAdapter(adapter);
 			}
@@ -134,10 +136,10 @@ public class CourseWeeklyFragment extends SherlockListFragment {
 			progressDialog.dismiss();
 		}		
 	}
-	
-	private RSSFeed getCourseWeekly() {
+
+	private RSSFeed getCourseWeekly() {		
 		String parameters = "userid=" + userid + "&courseid=" + courseid;
-		
+
 		try {
 			serviceConnection = new ServiceConnection("/courseWeeklyFormat.php?" + parameters);
 			serviceUrl = serviceConnection.getUrlServiceServer();

@@ -43,7 +43,7 @@ public class SemesterCourseActivity extends SherlockListActivity {
 	RSSFeed rssFeed = null;
 	
 	private ProgressDialog progressDialog;
-	private TextView feedTitle, feedDescription;
+	private TextView tvFeedTitle, tvFeedDescription;
 	
 	getCourseTask serviceTask = null;
 
@@ -82,9 +82,11 @@ public class SemesterCourseActivity extends SherlockListActivity {
 	}
 
 	@Override
-	protected void onListItemClick(ListView l, View v, int position, long id) {
-		// TODO Auto-generated method stub
-		super.onListItemClick(l, v, position, id);
+	protected void onListItemClick(ListView l, View v, int position, long id) {		
+		if (getApplicationContext() == null)
+			return;
+		
+		onCoursePressed(rssFeed.getItem(position).getLink(), rssFeed.getItem(position).getTitle());
 	}
 	
 	private class getCourseTask extends AsyncTask<Void, Void, RSSFeed> {
@@ -102,11 +104,11 @@ public class SemesterCourseActivity extends SherlockListActivity {
 		@Override
 		protected void onPostExecute(RSSFeed rssFeed) {			
 			if (rssFeed != null) {
-				feedTitle = (TextView) findViewById(R.id.feedTitle);
-				feedDescription = (TextView) findViewById(R.id.feedDescription);
+				tvFeedTitle = (TextView) findViewById(R.id.tvFeedTitle);
+				tvFeedDescription = (TextView) findViewById(R.id.tvFeedDescription);
 
-				feedTitle.setText(rssFeed.getTitle());
-				feedDescription.setText(rssFeed.getDescription());
+				tvFeedTitle.setText(rssFeed.getTitle());
+				tvFeedDescription.setText(rssFeed.getDescription());
 				
 				TwoLineListAdapter adapter = new TwoLineListAdapter(getApplicationContext());
 				
@@ -159,5 +161,10 @@ public class SemesterCourseActivity extends SherlockListActivity {
 		}
 
 		return rssFeed;
+	}
+	
+	public void onCoursePressed(String courseId, String courseFullname) {
+		Intent intent =  CourseContentActivity.newInstance(this, courseId, courseFullname);
+		startActivity(intent);
 	}
 }

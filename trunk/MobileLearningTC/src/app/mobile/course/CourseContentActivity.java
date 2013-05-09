@@ -2,10 +2,13 @@ package app.mobile.course;
 
 import app.mobile.account.ParticipantCourseFragment;
 import app.mobile.activity.assignment.AssignmentCourseFragment;
+import app.mobile.activity.assignment.AssignmentDetailActivity;
 import app.mobile.activity.forum.ForumCourseFragment;
+import app.mobile.activity.quiz.QuizCourseFragment;
 import app.mobile.authentication.SessionManager;
 import app.mobile.learningtc.R;
 import app.mobile.resource.ResourceCourseFragment;
+import app.mobile.resource.ResourceDetailActivity;
 
 import java.util.HashMap;
 
@@ -68,17 +71,18 @@ public class CourseContentActivity extends SherlockFragmentActivity {
         TitlePageIndicator indicator = (TitlePageIndicator) findViewById(R.id.indicator);
         indicator.setViewPager(viewPager);
         indicator.setFooterIndicatorStyle(IndicatorStyle.Triangle);
-        indicator.setCurrentItem(1);
+        indicator.setCurrentItem(0);
         indicator.setFooterColor(Color.parseColor("#FF7400"));
         indicator.setTextColor(0xFF000000);
         indicator.setSelectedColor(0xFF000000);
         indicator.setSelectedBold(true);
+        
         pageIndicator = indicator;
     }
     
     private static class CourseContentFragmentAdapter extends FragmentPagerAdapter {
     	static String[] CONTENT = new String[] {
-    		"All", "Weekly", "Assignments", "Resources", "News Forum", "Participants" };
+    		"Weekly", "Assignments", "Resources", "News Forum", "Quiz", "Participants" };
     	int count = CONTENT.length;
     	
     	public CourseContentFragmentAdapter(FragmentManager fm) {
@@ -87,26 +91,26 @@ public class CourseContentActivity extends SherlockFragmentActivity {
 
 		@Override
 		public Fragment getItem(int position) {
-			Fragment newContent = new CourseWeeklyFragment().newInstance(courseid);;
+			Fragment newContent = new Fragment();
 			
 			switch(position) {
-			case 1:
-				newContent = new CourseAllContentFragment().newInstance(courseid);
-				break;
-			case 2:
+			case 0:
 				newContent = new CourseWeeklyFragment().newInstance(courseid);
 				break;
-			case 3:
+			case 1:
 				newContent = new AssignmentCourseFragment().newInstance(courseid);
 				break;
-			case 4:
+			case 2:
 				newContent = new ResourceCourseFragment().newInstance(courseid);
 				break;
-			case 5:
+			case 3:
 				newContent = new ForumCourseFragment().newInstance(courseid);
 				break;
-			case 6:
-				newContent = new ParticipantCourseFragment().newInstance(courseid);
+			case 4:
+				newContent = new QuizCourseFragment().newInstance(courseid);
+				break;
+			case 5:
+				newContent = new ParticipantCourseFragment().newInstance(courseid); 
 				break;
 			}
 			
@@ -123,4 +127,14 @@ public class CourseContentActivity extends SherlockFragmentActivity {
 			return CourseContentFragmentAdapter.CONTENT[position % CONTENT.length];
 		}
     }
+    
+    public void onAssignmentPressed(String assignmentId, String assignmentName) {
+		Intent intent =  AssignmentDetailActivity.newInstance(this, assignmentId, assignmentName);
+		startActivity(intent);
+	}
+    
+    public void onResourcePressed(String cmId, String resId, String resName) {
+		Intent intent =  ResourceDetailActivity.newInstance(this, cmId, resId, resName);
+		startActivity(intent);
+	}
 }

@@ -1,6 +1,10 @@
 package app.mobile.learningtc;
 
+import com.viewpagerindicator.CirclePageIndicator;
+import com.viewpagerindicator.PageIndicator;
+
 import app.mobile.authentication.LoginActivity;
+import app.mobile.authentication.SessionManager;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -10,6 +14,7 @@ import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.text.method.LinkMovementMethod;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,6 +25,9 @@ import android.widget.ImageView;
 
 public class IntroActivity extends Activity {
 
+	SessionManager session;
+	PageIndicator pageIndicator;
+	
 	private Button bRegister, bLogin;
 
 	@Override
@@ -29,10 +37,15 @@ public class IntroActivity extends Activity {
 		// Set view
 		getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_intro);
+		
+		session = new SessionManager(getApplicationContext());
 
 		ViewPager viewPager = (ViewPager) findViewById(R.id.vpIntro);
 		SwipeImageAdapter adapter = new SwipeImageAdapter();
 		viewPager.setAdapter(adapter);
+		
+		pageIndicator = (CirclePageIndicator) findViewById(R.id.indicator);
+		pageIndicator.setViewPager(viewPager);
 
 		bRegister = (Button) findViewById(R.id.bRegister);
 		bLogin = (Button) findViewById(R.id.bLogin);
@@ -87,15 +100,17 @@ public class IntroActivity extends Activity {
 		return dialog;
 	}
 
-//	@Override
-//	public boolean onKeyDown(int keyCode, KeyEvent event) {
-//		if (keyCode == KeyEvent.KEYCODE_BACK) {
-//			moveTaskToBack(true);
-//			return true;
-//		}
-//
-//		return super.onKeyDown(keyCode, event);
-//	}
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			if (!session.isLoggedIn()) {
+				moveTaskToBack(true);
+				return true;
+			}
+		}
+
+		return super.onKeyDown(keyCode, event);
+	}
 
 	private class SwipeImageAdapter extends PagerAdapter {
 		private int[] images = new int[] {

@@ -17,11 +17,11 @@ public class IconListAdapter extends ArrayAdapter<IconListItem> {
 
 	public View getView(int position, View convertView, ViewGroup parent) {
 		if (convertView == null)
-			convertView = LayoutInflater.from(getContext()).inflate(R.layout.row, null);
+			convertView = LayoutInflater.from(getContext()).inflate(R.layout.row_icon, null);
 
-		ImageView icon = (ImageView) convertView.findViewById(R.id.row_icon);
+		ImageView icon = (ImageView) convertView.findViewById(R.id.ivRowIcon);
 		icon.setImageResource(getItem(position).iconRes);
-		TextView title = (TextView) convertView.findViewById(R.id.row_title);
+		TextView title = (TextView) convertView.findViewById(R.id.tvRowTitle);
 		title.setText(getItem(position).tag);
 
 		return convertView;
