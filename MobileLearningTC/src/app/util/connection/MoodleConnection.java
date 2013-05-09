@@ -10,9 +10,9 @@ package app.util.connection;
 
 public class MoodleConnection {
 	
-	//String urlMoodleServer = "http://10.0.2.2/moodle";
-	String urlMoodleServer = "http://192.168.1.2/moodle";
-	//String urlMoodleServer = "http://192.168.173.1/moodle";
+//	String urlMoodleServer = "http://10.0.2.2/moodle";
+	String urlMoodleServer = "http://192.168.1.4/moodle";
+//	String urlMoodleServer = "http://192.168.173.1/moodle";
 	
 	String adminToken = "4506e2a3f8aa465558ac6d0f31438287";
 	

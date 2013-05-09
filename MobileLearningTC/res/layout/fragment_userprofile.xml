@@ -33,7 +33,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/tvName"
         android:layout_marginTop="15dp"
-        android:text="@string/profile_username" />
+        android:text="@string/hint_username" />
 
     <TextView
         android:id="@+id/tvCountry"

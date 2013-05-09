@@ -5,9 +5,9 @@
     <string name="action_about">About</string>
     <string name="action_credits">Credits</string>
     <string name="action_settings">Settings</string>
-    <string name="action_logout">Logout</string>
+    <string name="action_logout">Log Out</string>
     <string name="hello_world">Hello world!</string>
-    <string name="title_activity_splash_screen">SplashScreenActivity</string>
+    <string name="title_activity_splash_screen">Splash Screen Activity</string>
     <string name="title_activity_intro">Introduction</string>
     <string name="button_register"><a href="http://elearning.if.its.ac.id/login/signup.php?">Register</a></string>
     <string name="button_login">Log In</string>
@@ -18,7 +18,7 @@
     <string name="about_server_title">Server</string>
     <string name="about_server_content">e-Learning Informatics Department, ITS</string>
     <string name="about_server_link">http://elearning.if.its.ac.id</string>
-    <string name="about_content_2">Hopefuly useful!</string>
+    <string name="about_content_2">Hopefully useful!</string>
     <string name="credits_developer_title">Developer</string>
     <string name="credits_developer_content">Fariani Dewi Yulianti from Informatics Department, ITS Indonesia. This application was created for the purpose of Final Project.</string>
     <string name="credits_supervisor_title">Supervisor</string>
@@ -31,24 +31,39 @@
     <string name="title_fragment_blog">Blogs</string>
     <string name="title_fragment_privatefile">Private File</string>
     <string name="title_fragment_messaging">Messaging</string>
-    <string name="title_activity_settings">Settings</string>
     <string name="image_user">User Photo</string>
-    <string name="profile_username">Username</string>
     <string name="profile_country">Country</string>
     <string name="profile_city">City/Town</string>
     <string name="profile_email_address">Email Address</string>
     <string name="profile_first_access">First Access</string>
     <string name="profile_last_access">Last Access</string>
-    <string name="response_empty_data">Maaf, tidak ada data yang dapat ditampilkan.</string>
+    <string name="response_empty_data">No data shown.</string>
     <string name="title_activity_edit_profile">Edit Profile</string>
     <string name="title_activity_change_password">Change Password</string>
-    <string name="title_activity_course_topic">Course Topic</string>
-    <string name="title_activity_course_detail_topic">Course Detail Topic</string>
-    <string name="title_activity_dashboard">Dashboard</string>
-    <string name="content_welcome">Selamat datang, </string>
     <string name="link_user_profile">&lt;u>%1$s (%2$s)&lt;/u></string>
     <string name="button_course">Course</string>
     <string name="button_calendar">Calendar</string>
-    <string name="title_activity_course_weekly">Course Weekly</string>
+    <string name="assignment_description">Description</string>
+    <string name="assignment_available">Available Date</string>
+    <string name="assignment_due">Due Date</string>
+    <string name="assignment_turned">Turned-in Date</string>
+    <string name="assignment_status">Status</string>
+    <string name="assignment_grade">Grade</string>
+    <string name="assignment_feedback">Feedback</string>
+    <string name="title_activity_participant_profile">Participant Profile</string>
+    <string name="title_activity_course_weekly_detail">Course Weekly Detail</string>
+    <string name="title_activity_assignment_submit">Assignment Submissions</string>
+    <string name="title_activity_upload">Upload</string>
+    <string name="button_upload">Upload</string>
+    <string name="hint_file_path">File Path</string>
+    <string name="title_activity_download">Download</string>
+    <string name="title_activity_resource_detail">ResourceDetailActivity</string>
+    <string name="resource_type">Type</string><string name="resource_date">Date</string>
+    
+    <string name="resource_component">Component</string>
+    <string name="resource_author">Author</string>
+    <string name="resource_license">License</string>
+    <string name="button_download">Download</string>
+    <string name="button_offline">Offline Mode</string>
 
 </resources>

@@ -9,12 +9,13 @@
         android:targetSdkVersion="17" />
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/Theme.Sherlock.Light" >
+        android:theme="@style/Theme.Mobilelearningtc" >
         <activity
             android:name="app.mobile.learningtc.SplashScreenActivity"
             android:label="@string/app_name"
@@ -42,10 +43,6 @@
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="app.mobile.learningtc.DashboardActivity"
-            android:label="@string/app_name" >
-        </activity>
-        <activity
             android:name="app.mobile.account.EditProfileActivity"
             android:label="@string/title_activity_edit_profile" >
         </activity>
@@ -54,16 +51,41 @@
             android:label="@string/title_activity_change_password" >
         </activity>
         <activity
-            android:name="app.mobile.course.CourseTopicActivity"
-            android:label="@string/title_activity_course_topic" >
-        </activity>
-        <activity
-            android:name="app.mobile.course.CourseDetailTopicActivity"
-            android:label="@string/title_activity_course_detail_topic" >
-        </activity>
-        <activity
             android:name="app.mobile.learningtc.SettingsActivity"
             android:label="@string/title_activity_settings" >
+        </activity>
+        <activity android:name="app.mobile.course.ZCourseContentActivity" >
+        </activity>
+        <activity android:name="app.mobile.course.CourseContentActivity" >
+        </activity>
+        <activity android:name="app.mobile.course.SemesterCourseActivity" >
+        </activity>
+        <activity android:name="app.mobile.activity.assignment.AssignmentDetailActivity" >
+        </activity>
+        <activity
+            android:name="app.mobile.account.ParticipantProfileActivity"
+            android:label="@string/title_activity_participant_profile" >
+        </activity>
+        <activity
+            android:name="app.mobile.course.CourseWeeklyDetailActivity"
+            android:label="@string/title_activity_course_weekly_detail" >
+        </activity>
+        <activity
+            android:name="app.mobile.activity.assignment.AssignmentSubmitActivity"
+            android:label="@string/title_activity_assignment_submit" >
+        </activity>
+        <activity
+            android:name="app.util.upload.UploadActivity"
+            android:label="@string/title_activity_upload"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <activity
+            android:name="app.util.download.DownloadActivity"
+            android:label="@string/title_activity_download" >
+        </activity>
+        <activity
+            android:name="app.mobile.resource.ResourceDetailActivity"
+            android:label="@string/title_activity_resource_detail" >
         </activity>
     </application>
 

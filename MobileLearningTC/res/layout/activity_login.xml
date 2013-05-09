@@ -80,12 +80,22 @@
 		        android:layout_marginTop="10dp"
 		        android:text="@string/button_login" />
 		    
+		    <Button
+		        android:id="@+id/bOffline"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_below="@id/bLogin"
+		        android:layout_centerHorizontal="true"
+		        android:layout_marginTop="5dp"
+		        android:text="@string/button_offline" />
+		    
 		    <TextView
 		        android:id="@+id/tvForgetPassword"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
-		        android:layout_below="@id/bLogin"
+		        android:layout_below="@id/bOffline"
 		        android:layout_centerHorizontal="true"
+		        android:layout_alignParentBottom="true"
 		        android:layout_marginTop="15dp"
 		        android:text="@string/forgot_password"
 		        android:textAppearance="?android:attr/textAppearanceSmall" />

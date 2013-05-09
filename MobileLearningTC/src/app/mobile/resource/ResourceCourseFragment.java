@@ -1,34 +1,51 @@
 package app.mobile.resource;
 
-import java.util.HashMap;
+import app.mobile.course.CourseContentActivity;
+import app.mobile.learningtc.R;
+import app.util.connection.ServiceConnection;
+import app.util.gui.TwoLineListAdapter;
+import app.util.gui.TwoLineListItem;
+import app.util.xml.RSSFeed;
+import app.util.xml.RSSHandler;
+import app.util.xml.RSSItem;
+
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.List;
+
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+import org.xml.sax.XMLReader;
 
 import android.app.ProgressDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import app.mobile.authentication.SessionManager;
-import app.mobile.learningtc.R;
-import app.util.connection.ServiceConnection;
-import app.util.xml.RSSFeed;
+import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockListFragment;
 import com.actionbarsherlock.view.MenuItem;
 
 public class ResourceCourseFragment extends SherlockListFragment {
 	
-	String courseid, courseFullname, userid, serviceUrl;
-	SessionManager session;
+	String courseid, courseFullname, serviceUrl;
 	ServiceConnection serviceConnection;
 	RSSFeed rssFeed = null;
 
-	private ProgressDialog progressCourseResource;
-//	private TextView feedCourseResourceTitle, feedCourseResourceDescription;
+	private ProgressDialog progressDialog;
+	private TextView tvFeedTitle, tvFeedDescription;
 
 	public ResourceCourseFragment newInstance(String courseid) {
 		ResourceCourseFragment fragment = new ResourceCourseFragment();
-
 		fragment.courseid = courseid;
 
 		return fragment;
@@ -36,27 +53,27 @@ public class ResourceCourseFragment extends SherlockListFragment {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-
-		// Get session info
-		session = new SessionManager(getActivity());
-		HashMap<String, String> user = session.getUserDetails();
-		userid = user.get(SessionManager.KEY_USERID);
-
-		// Progress dialog
-		progressCourseResource = new ProgressDialog(getActivity());
-		progressCourseResource.setMessage("Loading information...");
-		progressCourseResource.setIndeterminate(true);
-
-//		courseResourceTask = new getCourseWeeklyTask();
-//		courseResourceTask.execute();
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View v = inflater.inflate(R.layout.list, container, false);
+		View v = inflater.inflate(R.layout.list_info, container, false);
 		return v;
+	}
+	
+	@Override
+	public void onStart() {
+		super.onStart();
+
+		// Progress dialog
+		progressDialog = new ProgressDialog(getActivity());
+		progressDialog.setMessage("Loading information...");
+		progressDialog.setIndeterminate(true);
+
+		new getCourseResourceTask().execute();
 	}
 
 	@Override
@@ -67,7 +84,90 @@ public class ResourceCourseFragment extends SherlockListFragment {
 
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
-		// TODO Auto-generated method stub
-		super.onListItemClick(l, v, position, id);
+		if (getActivity() == null)
+			return;
+		
+		CourseContentActivity activity = (CourseContentActivity) getActivity();
+		activity.onResourcePressed(rssFeed.getItem(position).getLink(), 
+				rssFeed.getItem(position).getPubdate(), 
+				rssFeed.getItem(position).getTitle());
+	}
+	
+	private class getCourseResourceTask extends AsyncTask<Void, Void, RSSFeed>{
+		@Override
+		protected RSSFeed doInBackground(Void... params) {
+			return getCourseResource();
+		}
+
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			progressDialog.show();
+		}
+
+		@Override
+		protected void onPostExecute(RSSFeed result) {
+			if (rssFeed != null) {
+				tvFeedTitle = (TextView) getView().findViewById(R.id.tvFeedTitle);
+				tvFeedDescription = (TextView) getView().findViewById(R.id.tvFeedDescription);
+
+				if (rssFeed.getLink() != null) {
+					tvFeedTitle.setText(rssFeed.getTitle());
+					tvFeedDescription.setText("Week " + rssFeed.getDescription());
+				}
+				else
+					tvFeedTitle.setText(rssFeed.getTitle());
+
+				TwoLineListAdapter adapter = new TwoLineListAdapter(getActivity());
+
+				List<RSSItem> rssList = rssFeed.getList();
+				for (int i = 0; i < rssList.size(); i++) {
+					RSSItem item = rssList.get(i);
+					adapter.add(new TwoLineListItem(item.getTitle(), item.getDescription()));
+				}
+				setListAdapter(adapter);
+			}
+
+			progressDialog.dismiss();
+		}
+
+		@Override
+		protected void onCancelled() {
+			progressDialog.dismiss();
+		}		
+	}
+
+	private RSSFeed getCourseResource() {
+		String parameters = "&courseid=" + courseid;
+
+		try {
+			serviceConnection = new ServiceConnection("/resourceCourse.php?" + parameters);
+			serviceUrl = serviceConnection.getUrlServiceServer();
+			URL url = new URL(serviceUrl);
+			Log.d("Server URL", serviceUrl);
+
+			SAXParserFactory factory = SAXParserFactory.newInstance();
+			SAXParser parser = factory.newSAXParser();
+			XMLReader xmlReader = parser.getXMLReader();
+
+			RSSHandler rssHandler = new RSSHandler();
+			xmlReader.setContentHandler(rssHandler);
+			xmlReader.parse(new InputSource(url.openStream()));
+			rssFeed = rssHandler.getFeed();
+		}
+		catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+		catch (ParserConfigurationException e) {
+			e.printStackTrace();
+		}
+		catch (SAXException e) {
+			e.printStackTrace();
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return rssFeed;
 	}
 }

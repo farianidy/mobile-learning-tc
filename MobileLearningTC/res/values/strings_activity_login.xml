@@ -12,6 +12,6 @@
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
     <string name="error_incorrect_username">This username is incorrect</string>
-    <string name="forgot_password"><a href="http://elearning.if.its.ac.id/login/forgot_password.php">Forgot your password?</a></string>
+    <string name="forgot_password"><a href="http://elearning.if.its.ac.id/login/forgot_password.php">I forgot my password</a></string>
 
 </resources>

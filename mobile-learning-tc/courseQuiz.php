@@ -1,0 +1,30 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Kuis Mata Kuliah</title>
+	<description></description>
+<?php
+    include "config.php";
+    
+    $query = "SELECT a.id as cmid, d.id as quizid, d.name
+                FROM mdl_course_modules AS a
+                    INNER JOIN mdl_course AS b ON b.id = a.course
+                    INNER JOIN mdl_modules AS c ON c.id = a.module
+                    INNER JOIN mdl_assign AS d ON d.id = a.instance
+                    AND c.id = '1' AND b.id = '" . $_GET["courseid"] ."'";
+    
+    $result = mysql_query($query);
+    while ($row = mysql_fetch_array($result)) {
+?>
+        <item>
+            <link><?php echo $row["cmid"]; ?></link>
+            <title><?php echo $row["name"]; ?></title>
+            <pubdate><?php echo $row["quizid"]; ?></pubdate>
+        </item>
+<?php
+    }
+?>
+    </channel>
+</rss>
+<?php
+    mysql_close();
+?>

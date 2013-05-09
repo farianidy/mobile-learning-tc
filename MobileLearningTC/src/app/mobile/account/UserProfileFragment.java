@@ -36,11 +36,11 @@ public class UserProfileFragment extends SherlockFragment {
 	ServiceConnection serviceConnection;
 	MoodleConnection moodleConnection = new MoodleConnection();
 	
-	private ProgressDialog progressUserDetail;
+	private ProgressDialog progressDialog;
 	private ImageView ivUser;
 	private TextView tvUsername, tvName, tvCountry, tvCity, tvEmailAddress, tvFirstAccess, tvLastAccess;
 	
-	getUserDetailById userDetailTask = null;
+	getUserDetailById serviceTask = null;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -58,12 +58,12 @@ public class UserProfileFragment extends SherlockFragment {
 		username = user.get(SessionManager.KEY_USERNAME);
 		fullname = user.get(SessionManager.KEY_FULLNAME);
 		
-		progressUserDetail = new ProgressDialog(getActivity());
-		progressUserDetail.setMessage("Loading information...");
-		progressUserDetail.setIndeterminate(true);
+		progressDialog = new ProgressDialog(getActivity());
+		progressDialog.setMessage("Loading information...");
+		progressDialog.setIndeterminate(true);
 		
-		userDetailTask = new getUserDetailById();
-		userDetailTask.execute(userid);
+		serviceTask = new getUserDetailById();
+		serviceTask.execute(userid);
 	}
 
 	@Override
@@ -82,12 +82,12 @@ public class UserProfileFragment extends SherlockFragment {
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
-			progressUserDetail.show();
+			progressDialog.show();
 		}
 		
 		@Override
 		protected void onPostExecute(String result) {
-			userDetailTask = null;
+			serviceTask = null;
 			
 			ivUser = (ImageView) getView().findViewById(R.id.ivUser);
 			tvName = (TextView) getView().findViewById(R.id.tvName);
@@ -110,13 +110,13 @@ public class UserProfileFragment extends SherlockFragment {
 			// TODO: If user picture not empty
 			ivUser.setImageResource(R.drawable.user_empty);
 			
-			progressUserDetail.dismiss();
+			progressDialog.dismiss();
 		}
 		
 		@Override
 		protected void onCancelled() {
-			userDetailTask = null;
-			progressUserDetail.dismiss();
+			serviceTask = null;
+			progressDialog.dismiss();
 		}
 	}
 	

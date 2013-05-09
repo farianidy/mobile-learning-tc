@@ -54,7 +54,7 @@ public class LoginActivity extends Activity {
 	
 	userLoginTask authTask = null;
 
-	private Button bLogin;
+	private Button bLogin, bOffline;
 	private EditText etUsername, etPassword;
 	private TextView tvLoginStatusMessage, tvForgetPassword;
 	private View vLoginForm, vLoginStatus;
@@ -93,6 +93,14 @@ public class LoginActivity extends Activity {
 		bLogin.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				attemptLogin();
+			}
+		});
+		
+		bOffline.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				
 			}
 		});
 	}
@@ -135,16 +143,6 @@ public class LoginActivity extends Activity {
 		
 		return dialog;
 	}
-	
-//	@Override
-//	public boolean onKeyDown(int keyCode, KeyEvent event) {
-//		if (keyCode == KeyEvent.KEYCODE_BACK) {
-//			moveTaskToBack(true);
-//			return true;
-//		}
-//		
-//		return super.onKeyDown(keyCode, event);
-//	}
 	
 	public void attemptLogin() {
 		if (authTask != null)

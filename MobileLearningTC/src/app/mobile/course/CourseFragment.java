@@ -43,7 +43,7 @@ public class CourseFragment extends SherlockListFragment {
 	RSSFeed rssFeed = null;
 
 	private ProgressDialog progressDialog;
-	private TextView feedTitle, feedDescription;
+	private TextView tvFeedTitle, tvFeedDescription;
 	
 	getCourseTask serviceTask = null;
 
@@ -100,11 +100,11 @@ public class CourseFragment extends SherlockListFragment {
 		@Override
 		protected void onPostExecute(RSSFeed rssFeed) {			
 			if (rssFeed != null) {
-				feedTitle = (TextView) getView().findViewById(R.id.feedTitle);
-				feedDescription = (TextView) getView().findViewById(R.id.feedDescription);
+				tvFeedTitle = (TextView) getView().findViewById(R.id.tvFeedTitle);
+				tvFeedDescription = (TextView) getView().findViewById(R.id.tvFeedDescription);
 
-				feedTitle.setText(rssFeed.getTitle());
-				feedDescription.setText(rssFeed.getDescription());
+				tvFeedTitle.setText(rssFeed.getTitle());
+				tvFeedDescription.setText(rssFeed.getDescription());
 
 				ArrayAdapter<RSSItem> rssList = new ArrayAdapter<RSSItem>(getActivity(), 
 						android.R.layout.simple_list_item_1, rssFeed.getList());
