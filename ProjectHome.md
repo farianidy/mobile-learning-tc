@@ -1,0 +1,1 @@
+This application created for Final Project purpose. It is mobile application for Android device which integrated with e-Learning website. Only for Informatics Department of Institut Teknologi Sepuluh Nopember, Surabaya, Indonesia.
